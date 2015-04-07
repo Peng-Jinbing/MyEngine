@@ -19,6 +19,11 @@ public class Screen extends BitMap {
 		this.draw(testGraphics,0,0);
 		
 		Line line = new Line(10, 10, 60, 80, 255<<8);
+		
+		Clipping clip= new Clipping();
+		clip.setArea(0, 0, 64, 68);
+		clip.clipLine(line);
+		
 		line.draw(this);
 	}
 

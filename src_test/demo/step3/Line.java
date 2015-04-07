@@ -14,9 +14,9 @@ public class Line {
 	}
 
 	public void draw(BitMap bitMap) {
-		int[] pixels= bitMap.getPixels();
+		int[] pixels = bitMap.getPixels();
 		int bitMapWidth = bitMap.getWidth();
-		
+
 		int x = x1;
 		int y = y1;
 
@@ -67,5 +67,25 @@ public class Line {
 
 	public void setColor(int color) {
 		this.color = color;
+	}
+
+	public int getX1() {
+		return x1;
+	}
+
+	public int getY1() {
+		return y1;
+	}
+
+	public int getX2() {
+		return x2;
+	}
+
+	public int getY2() {
+		return y2;
+	}
+
+	public int getColor() {
+		return color;
 	}
 }
