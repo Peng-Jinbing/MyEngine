@@ -17,6 +17,7 @@ public class Screen extends BitMap {
 			}
 		}
 		this.draw(testGraphics,0,0);
+		this.drawLine(10, 10, 50, 20, 255<<8);
 	}
 
 	public void draw(BitMap bitmap, int offX, int offY) {
@@ -41,4 +42,48 @@ public class Screen extends BitMap {
 			}
 		}
 	}
+	
+	public void drawPixel(int posX, int posY, int color) {
+		super.pixels[posY * width + posX] = color;
+	}
+	
+	public void drawLine(int x0, int y0, int x1, int y1, int color) {
+		int x = x0;
+		int y = y0;
+
+		int w = x1 - x0;
+		int h = y1 - y0;
+
+		int dx1 = w < 0 ? -1 : (w > 0 ? 1 : 0);
+		int dy1 = h < 0 ? -1 : (h > 0 ? 1 : 0);
+
+		int dx2 = w < 0 ? -1 : (w > 0 ? 1 : 0);
+		int dy2 = 0;
+
+		int fastStep = Math.abs(w);
+		int slowStep = Math.abs(h);
+		if (fastStep <= slowStep) {
+			fastStep = Math.abs(h);
+			slowStep = Math.abs(w);
+
+			dx2 = 0;
+			dy2 = h < 0 ? -1 : (h > 0 ? 1 : 0);
+		}
+
+		int numerator = fastStep >> 1;
+
+		for (int i = 0; i <= fastStep; i++) {
+			drawPixel(x, y, color);
+			numerator += slowStep;
+			if (numerator >= fastStep) {
+				numerator -= fastStep;
+				x += dx1;
+				y += dy1;
+			} else {
+				x += dx2;
+				y += dy2;
+			}
+		}
+	}
+
 }
