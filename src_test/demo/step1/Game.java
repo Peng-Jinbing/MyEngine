@@ -1,4 +1,4 @@
-package demo1;
+package demo.step1;
 
 import java.awt.Dimension;
 
