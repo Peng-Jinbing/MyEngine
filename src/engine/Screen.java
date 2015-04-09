@@ -28,7 +28,7 @@ public class Screen extends Texture {
 		}
 
 		
-		for(int i=0;i<100;i++){
+		for(int i=0;i<300;i++){
 			int xd = (int) (Math.sin(time) * 80);
 			int yd = (int) (Math.cos(time) * 80);
 			this.draw(testGraphics, x1 + xd, y1 + yd);
