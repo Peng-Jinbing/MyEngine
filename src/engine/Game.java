@@ -44,7 +44,7 @@ public class Game extends Canvas implements Runnable {
 	public static void main(String[] args) {
 		Game game = new Game();
 
-		JFrame frame = new JFrame("Game step4");
+		JFrame frame = new JFrame("Game step5");
 		frame.add(game);
 		frame.pack();
 		frame.setResizable(false);
@@ -77,12 +77,20 @@ public class Game extends Canvas implements Runnable {
 
 	@Override
 	public void run() {
+		long lastTime = System.currentTimeMillis();
+		int frameCount = 0;
 		while (running) {
 			this.tick();
 			this.render();
+			frameCount++;
+
+			while (System.currentTimeMillis() - lastTime > 1000) {
+				System.out.println(frameCount + "fps");
+				lastTime += 1000;
+				frameCount = 0;
+			}
 		}
 		System.exit(0);
-
 	}
 
 	private void tick() {
