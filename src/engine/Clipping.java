@@ -1,7 +1,4 @@
-package Sharp2D;
-
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
+package engine;
 
 public final class Clipping {
 	private static final int INSIDE = 0;
@@ -18,24 +15,14 @@ public final class Clipping {
 	public Clipping() {
 	}
 
-	public Clipping(Rectangle2D clip) {
-		setClip(clip);
+	public void setArea(double xMin, double yMin, double xMax, double yMax) {
+		this.xMin = xMin;
+		this.xMax = xMax;
+		this.yMin = yMin;
+		this.yMax = yMax;
 	}
 
-	public void setClip(Rectangle2D clip) {
-		xMin = clip.getX();
-		xMax = xMin + clip.getWidth();
-		yMin = clip.getY();
-		yMax = yMin + clip.getHeight();
-	}
-
-	private final int getRegionCode(double x, double y) {
-		int xcode = x < xMin ? LEFT : x > xMax ? RIGHT : INSIDE;
-		int ycode = y < yMin ? BOTTOM : y > yMax ? TOP : INSIDE;
-		return xcode | ycode;
-	}
-
-	public boolean clip(Line2D.Float line) {
+	public boolean clipLine(Line line) {
 		double p1x = line.getX1(), p1y = line.getY1();
 		double p2x = line.getX2(), p2y = line.getY2();
 		double qx = 0d, qy = 0d;
@@ -46,7 +33,7 @@ public final class Clipping {
 		int code2 = getRegionCode(p2x, p2y);
 
 		while (true) {
-			if(code1 == INSIDE & code2 == INSIDE){
+			if(code1 == INSIDE && code2 == INSIDE){
 				break;
 			}			
 
@@ -80,7 +67,14 @@ public final class Clipping {
 				code2 = getRegionCode(p2x, p2y);
 			}
 		}
-		line.setLine(p1x, p1y, p2x, p2y);
+		line.setPosition1((int)p1x, (int)p1y);
+		line.setPosition2((int)p2x, (int)p2y);
 		return true;
+	}
+	
+	private final int getRegionCode(double x, double y) {
+		int xcode = x < xMin ? LEFT : x > xMax ? RIGHT : INSIDE;
+		int ycode = y < yMin ? BOTTOM : y > yMax ? TOP : INSIDE;
+		return xcode | ycode;
 	}
 }

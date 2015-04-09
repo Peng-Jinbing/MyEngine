@@ -2,8 +2,6 @@ package wormchase;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import engine.Game;
-
 public class WormChaseGame extends Game {
 	private static final long serialVersionUID = 593876016102024415L;
 	// entity objects
