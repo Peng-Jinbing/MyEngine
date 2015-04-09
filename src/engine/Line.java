@@ -13,9 +13,9 @@ public class Line {
 		this.setColor(color);
 	}
 
-	public void draw(Texture bitMap) {
-		int[] pixels = bitMap.getPixels();
-		int bitMapWidth = bitMap.getWidth();
+	public void draw(Screen sreen) {
+		int[] screenPixels = sreen.getPixels();
+		int screenWidth = sreen.getWidth();
 
 		int x = x1;
 		int y = y1;
@@ -42,7 +42,7 @@ public class Line {
 		int numerator = fastStep >> 1;
 
 		for (int i = 0; i <= fastStep; i++) {
-			pixels[y * bitMapWidth + x] = color;
+			screenPixels[y * screenWidth + x] = color;
 			numerator += slowStep;
 			if (numerator >= fastStep) {
 				numerator -= fastStep;
