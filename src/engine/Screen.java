@@ -7,9 +7,11 @@ public class Screen extends Texture {
 		super(width, height);
 	}
 
+	int time=0;
 	public void render(Ticker ticker) {
 		//clear(255<<16|255<<8|255);
 		clear(0);
+		this.time++;
 		
 		int textureWidth = 64;
 		int textureHeight = 64;
@@ -25,12 +27,10 @@ public class Screen extends Texture {
 			testPixels[i] = r.nextInt()* ((int)(r.nextInt(5)/4));
 		}
 
-		int speedFactor = 2000;
-
+		
 		for(int i=0;i<100;i++){
-			double angle= System.currentTimeMillis() % speedFactor*(i/20) / Double.valueOf(speedFactor) * Math.PI * 2;
-			int xd = (int) (Math.sin(angle) * 40);
-			int yd = (int) (Math.cos(angle) * 40);
+			int xd = (int) (Math.sin(time) * 80);
+			int yd = (int) (Math.cos(time) * 80);
 			this.draw(testGraphics, x1 + xd, y1 + yd);
 		}
 		
