@@ -44,7 +44,7 @@ public class Game extends Canvas implements Runnable {
 	public static void main(String[] args) {
 		Game game = new Game();
 
-		JFrame frame = new JFrame("Game step2");
+		JFrame frame = new JFrame("Game step4");
 		frame.add(game);
 		frame.pack();
 		frame.setResizable(false);
