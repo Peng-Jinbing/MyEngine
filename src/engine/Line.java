@@ -13,7 +13,7 @@ public class Line {
 		this.setColor(color);
 	}
 
-	public void draw(BitMap bitMap) {
+	public void draw(Texture bitMap) {
 		int[] pixels = bitMap.getPixels();
 		int bitMapWidth = bitMap.getWidth();
 
