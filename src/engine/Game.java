@@ -115,10 +115,8 @@ public class Game extends Canvas implements Runnable {
 				}
 			}
 
-			if (ticked) {
-				this.render();
-				frameCount++;
-			}
+			this.render();
+			frameCount++;
 		}
 		System.exit(0);
 	}

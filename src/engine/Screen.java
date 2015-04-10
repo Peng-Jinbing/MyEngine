@@ -3,10 +3,18 @@ package engine;
 import java.util.Random;
 
 public class Screen extends Texture {
+	public static final int PANEL_HEIGHT = 8*3;
+	Texture testArea;
+	Texture gameArea;
+	Texture viewArea;
+	
+	
 	public Screen(int width, int height) {
 		super(width, height);
-	}
 
+		this.gameArea = new Texture(width,  PANEL_HEIGHT);
+		this.viewArea = new Texture(width,  height - PANEL_HEIGHT);
+	}
 
 	public void render(Ticker ticker) {
 		//clear(255<<16|255<<8|255);
@@ -19,8 +27,8 @@ public class Screen extends Texture {
 		int x2 = x1 + textureWidth - 1;
 		int y2 = y1 + textureHeight - 1;
 
-		Texture testGraphics = new Texture(textureWidth, textureHeight);
-		int[] testPixels = testGraphics.getPixels();
+		testArea = new Texture(textureWidth, textureHeight);
+		int[] testPixels = testArea.getPixels();
 		Random r = new Random();
 		for (int i = 0; i < textureHeight*textureWidth; i++) {
 			testPixels[i] = r.nextInt()* ((int)(r.nextInt(5)/4));
@@ -29,14 +37,19 @@ public class Screen extends Texture {
 		for (int i = 0; i < 900; i++) {
 			int xd = (ticker.time + i * 8) % 400 - 100;
 			int yd = 0;// (int) (Math.cos(ticker.time) * 80);
-			this.draw(testGraphics, x1 + xd, y1 + yd);
+			gameArea.draw(testArea, (gameArea.width - textureWidth) / 2  + xd, (gameArea.height - textureHeight) / 2 + yd);
 		}
 
+		draw(viewArea, 0, 0);
+		draw(gameArea, 0, height - PANEL_HEIGHT);
+		
 		Line lineLeft = new Line(x1, y1, x1, y2, 255 << 8);
 		Line lineBottom = new Line(x1, y2, x2, y2, 255 << 8);
 		Line lineRigth = new Line(x2, y1, x2, y2, 255 << 8);
 		Line lineTop = new Line(x1, y1, x2, y1, 255 << 8);
 
+
+		
 		lineLeft.draw(this);
 		lineBottom.draw(this);
 		lineRigth.draw(this);
@@ -48,32 +61,7 @@ public class Screen extends Texture {
 
 	}
 
-	public void draw(Texture texture, int offX, int offY) {
-		int textureWidth = texture.getWidth();
-		int textureHeight = texture.getHeight();
-		int[] texturePixels = texture.getPixels();
 
-		int posX = 0, posY = 0;
-		for (int i = 0; i < textureHeight; i++) {
-			posY = offY + i;
-			if (posY < 0 || posY >= super.height) {
-				continue;
-			}
-
-			for (int j = 0; j < textureWidth; j++) {
-				posX = offX + j;
-				if (posX < 0 || posX >= super.width) {
-					continue;
-				}
-
-				int srcPixel = texturePixels[i * textureWidth + j];
-				if(srcPixel>0){
-					super.pixels[posY * width + posX] = srcPixel;
-				}
-			}
-		}
-	}
-	
 	
 	public void clear(int color){
 		for (int i = 0; i < width * height; i++) {
