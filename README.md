@@ -1,2 +1,4 @@
 # MyEngine
-This is a Java based, pure software implemented game engine instead of using hard ware accelerator.The purpose is to studing the game from low-level so we can have a better understanding of the functionality the GPU and other hardware leverage to the game performance.
+This is a Java based, pure software implemented game engine instead of using hard ware accelerator. The purpose is to studing the game from low-level so we can have a better understanding of the functionality the GPU and other hardware leverage to the game performance.
+
+It is inspired from the project **Prelude of the Chambere** created by Notch. When I watched his Video and try to program by myself, I found it is very difficult. So I decided to create a simlilar project and seperated it to many micro-steps, so any people want to learn how to program will be easier with the help from this project. At the mean time, I will add my own improvement and ideas when doing the Job. 
