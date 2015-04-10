@@ -15,6 +15,9 @@ public class Game extends Canvas implements Runnable {
 	private static final int WIDTH = 160;
 	private static final int HEIGHT = 120;
 	private static final int SCALE = 4;
+	
+	private static final double NANO_PER_SECOND = 1000000000.0;
+	private static final double NANO_PER_SECOND_1_OVER_10 = 1000000000.0;
 
 	private boolean running = false;
 
@@ -77,17 +80,44 @@ public class Game extends Canvas implements Runnable {
 
 	@Override
 	public void run() {
-		long lastTime = System.currentTimeMillis();
 		int frameCount = 0;
-		while (running) {
-			this.tick();
-			this.render();
-			frameCount++;
+		
+		double notProcessedTimeInSec = 0;
+		double secondsPerTick = 1 / 60.0;
+		int tickCount =0;
 
-			while (System.currentTimeMillis() - lastTime > 1000) {
-				System.out.println(frameCount + "fps");
-				lastTime += 1000;
-				frameCount = 0;
+		long lastTimeNS = System.nanoTime();
+		while (running) {
+			long currentTimeNS = System.nanoTime();
+			long passedTimeNS = currentTimeNS - lastTimeNS;
+			lastTimeNS = currentTimeNS;
+
+			if (passedTimeNS < 0) {
+				passedTimeNS = 0;
+			} else if (passedTimeNS > NANO_PER_SECOND_1_OVER_10) {
+				passedTimeNS = (int) NANO_PER_SECOND_1_OVER_10;
+			}
+
+			notProcessedTimeInSec += passedTimeNS / NANO_PER_SECOND;
+
+			boolean ticked = false;
+			while (notProcessedTimeInSec > secondsPerTick) {
+				this.tick();
+				tickCount++;
+				ticked = true;
+				
+				notProcessedTimeInSec -= secondsPerTick;
+
+				if (tickCount%60==0) {
+					System.out.println(frameCount + "fps");
+					//lastTimeNS += NANO_PER_SECOND;
+					frameCount = 0;
+				}
+			}
+
+			if (ticked) {
+				this.render();
+				frameCount++;
 			}
 		}
 		System.exit(0);
