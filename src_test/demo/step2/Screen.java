@@ -1,16 +1,16 @@
 package demo.step2;
 
 
-public class Screen extends BitMap {
+public class Screen extends Bitmap {
 	public Screen(int width, int height) {
 		super(width, height);
 	}
 
-	public void render(Ticker ticker, BitMap bitMap) {
+	public void render(Ticker ticker, Bitmap bitMap) {
 		this.putBitMap(bitMap, 0, 0);
 	}
 
-	public void putBitMap(BitMap bitmap, int offX, int offY) {
+	public void putBitMap(Bitmap bitmap, int offX, int offY) {
 		int w = bitmap.getWidth();
 		int h = bitmap.getHeight();
 		int[] p = bitmap.getPixels();
@@ -37,7 +37,7 @@ public class Screen extends BitMap {
 		}
 	}
 	
-	public void getBitMap(BitMap bitmap, int offX, int offY) {
+	public void getBitMap(Bitmap bitmap, int offX, int offY) {
 		int w = bitmap.getWidth();
 		int h = bitmap.getHeight();
 		int[] bitMapPixels = bitmap.getPixels();

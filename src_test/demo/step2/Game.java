@@ -9,6 +9,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
@@ -96,7 +97,7 @@ public class Game extends Canvas implements Runnable {
 			return;// skip one render
 		}
 		
-		BitMap floors = ImageLoader.floors;
+		Bitmap floors = ImageLoader.floors;
 		
 		this.screen.render(ticker,floors);
 
