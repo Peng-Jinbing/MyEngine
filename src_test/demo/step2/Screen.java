@@ -6,11 +6,11 @@ public class Screen extends Bitmap {
 		super(width, height);
 	}
 
-	public void render(Ticker ticker, Bitmap bitMap) {
-		this.putBitMap(bitMap, 0, 0);
+	public void render(Ticker ticker, Bitmap bitmap) {
+		this.putBitmap(bitmap, 0, 0);
 	}
 
-	public void putBitMap(Bitmap bitmap, int offX, int offY) {
+	public void putBitmap(Bitmap bitmap, int offX, int offY) {
 		int w = bitmap.getWidth();
 		int h = bitmap.getHeight();
 		int[] p = bitmap.getPixels();
@@ -37,7 +37,7 @@ public class Screen extends Bitmap {
 		}
 	}
 	
-	public void getBitMap(Bitmap bitmap, int offX, int offY) {
+	public void getBitmap(Bitmap bitmap, int offX, int offY) {
 		int w = bitmap.getWidth();
 		int h = bitmap.getHeight();
 		int[] bitMapPixels = bitmap.getPixels();
