@@ -1,51 +1,65 @@
 package demo.step3;
 
-import java.util.Random;
 
-public class Screen extends BitMap {
+public class Screen extends Bitmap {
 	public Screen(int width, int height) {
 		super(width, height);
 	}
 
-	public void render(Ticker ticker) {
-		BitMap testGraphics = new BitMap(64,64);
-		int[] testPixels = testGraphics.getPixels();
-		Random  r =new Random();
-		for(int i=0;i<64;i++){
-			for(int j=0;j<64;j++){
-				testPixels[i*64+j] = (int)(r.nextInt(255));
-			}
-		}
-		this.draw(testGraphics,0,0);
-		
-		Line line = new Line(10, 10, 60, 80, 255<<8);
-		
-		Clipping clip= new Clipping();
-		clip.setArea(0, 0, 64, 68);
-		clip.clipLine(line);
-		
-		line.draw(this);
+	public void render(Ticker ticker, Bitmap bitmap) {
+		this.putBitmap(bitmap, 0, 0);
 	}
 
-	public void draw(BitMap bitmap, int offX, int offY) {
-		int bitmapWidth = bitmap.getWidth();
-		int bitmapHeight = bitmap.getHeight();
-		int[] bitmapPixels = bitmap.getPixels();
+	public void putBitmap(Bitmap bitmap, int offX, int offY) {
+		int w = bitmap.getWidth();
+		int h = bitmap.getHeight();
+		int[] p = bitmap.getPixels();
+		int[] screenPixels = super.pixels;
 
 		int posX = 0, posY = 0;
-		for (int i = 0; i < bitmapHeight; i++) {
-			posY = offY + i;
+		for (int y = 0; y < h; y++) {
+			posY = offY + y;
 			if (posY < 0 || posY >= super.height) {
 				continue;
 			}
 
-			for (int j = 0; j < bitmapWidth; j++) {
-				posX = offX + j;
+			int screenRowOffset = posY * width;
+			int bitmapRowOffset = y * w;
+
+			for (int x = 0; x < w; x++) {
+				posX = offX + x;
 				if (posX < 0 || posX >= super.width) {
 					continue;
 				}
 
-				super.pixels[posY * width + posX] = bitmapPixels[i * bitmapWidth + j];
+				screenPixels[screenRowOffset + posX] = p[bitmapRowOffset + x];
+			}
+		}
+	}
+
+	public void getBitmap(Bitmap bitmap, int offX, int offY) {
+		int w = bitmap.getWidth();
+		int h = bitmap.getHeight();
+		int[] bitMapPixels = bitmap.getPixels();
+		int[] screenPixels = super.pixels;
+
+		int posX = 0, posY = 0;
+		for (int y = 0; y < h; y++) {
+			posY = offY + y;
+			if (posY < 0 || posY >= super.height) {
+				continue;
+			}
+
+			int screenRowOffset = posY * width;
+			int bitmapRowOffset = y * w;
+
+			for (int x = 0; x < w; x++) {
+				posX = offX + x;
+				if (posX < 0 || posX >= super.width) {
+					continue;
+				}
+
+				bitMapPixels[bitmapRowOffset + x] = screenPixels[screenRowOffset + posX];
 			}
 		}
 	}

@@ -9,6 +9,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
@@ -44,7 +45,7 @@ public class Game extends Canvas implements Runnable {
 	public static void main(String[] args) {
 		Game game = new Game();
 
-		JFrame frame = new JFrame("Game step2");
+		JFrame frame = new JFrame("Game step3");
 		frame.add(game);
 		frame.pack();
 		frame.setResizable(false);
@@ -95,13 +96,26 @@ public class Game extends Canvas implements Runnable {
 			this.createBufferStrategy(3);
 			return;// skip one render
 		}
-		this.screen.render(ticker);
+		
+		//populate the bitmap
+		Bitmap floors = ImageLoader.sprites;
+		this.screen.render(ticker,floors);
 
-		Graphics g = bs.getDrawGraphics();
-		for (int i = 0; i < this.screen.getPixels().length; i++) {
-			this.screenPixels[i] = this.screen.getPixels()[i];
+
+		//draw the line
+		Line line = new Line(10, 10, 60, 80, 255<<8);
+		Clipping clip= new Clipping();
+		clip.setArea(0, 0, 64, 68);
+		clip.clipLine(line);
+		line.draw(this.screen);
+		
+		//copy from the screen bitmap to screen buffer
+		int[] pixels =this.screen.getPixels();
+		for (int i = 0, len = pixels.length; i < len; i++) {
+			this.screenPixels[i] = pixels[i];
 		}
-
+		
+		Graphics g = bs.getDrawGraphics();
 		g.drawImage(this.screenImage, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g.dispose();
 		bs.show();
