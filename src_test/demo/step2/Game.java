@@ -95,7 +95,10 @@ public class Game extends Canvas implements Runnable {
 			this.createBufferStrategy(3);
 			return;// skip one render
 		}
-		this.screen.render(ticker);
+		
+		BitMap floors = ImageLoader.floors;
+		
+		this.screen.render(ticker,floors);
 
 		Graphics g = bs.getDrawGraphics();
 		for (int i = 0; i < this.screen.getPixels().length; i++) {

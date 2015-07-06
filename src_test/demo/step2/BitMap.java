@@ -1,7 +1,6 @@
 package demo.step2;
 
 public class BitMap {
-
 	protected int width;
 	protected int height;
 	protected int[] pixels;
