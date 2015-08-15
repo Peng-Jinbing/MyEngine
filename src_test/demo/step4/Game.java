@@ -13,9 +13,9 @@ import javax.swing.JFrame;
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
-	private static final int WIDTH = 160;
-	private static final int HEIGHT = 120;
-	private static final int SCALE = 4;
+	private static final int WIDTH = 4 * 160;
+	private static final int HEIGHT = 4 * 120;
+	private static final int SCALE = 1;
 
 	private boolean running = false;
 
@@ -98,15 +98,22 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		// populate the bitmap
-		Bitmap sprites = ImageLoader.sprites;
+		Bitmap sprites = ImageLoader.texture;
 
-		Sprite sprite = new Sprite(0, 0, Sprite.WIDTH_16, Sprite.WIDTH_16);
-		sprite.loadFrameFromImage(sprites, 0, 0, 0);
-		sprite.loadFrameFromImage(sprites, 1, 1, 1);
+		Sprite sprite1 = new Sprite(0, 0, Sprite.WIDTH_80, Sprite.WIDTH_80);
+		sprite1.loadFrame(sprites, 0, 0, 0);
+		sprite1.loadFrame(sprites, 1, 1, 1);
+		sprite1.currentFrame=0;
+		sprite1.draw(screen, true);
 
-		this.screen.render(ticker, sprite.frames[0], 0, 0);
-		this.screen.render(ticker, sprite.frames[1], 32, 32);
+		
+		Sprite sprite2 = new Sprite(160, 160, Sprite.WIDTH_80, Sprite.WIDTH_80);
+		sprite2.loadFrame(sprites, 0, 3, 0);
+		sprite2.loadFrame(sprites, 1, 4, 1);
+		sprite2.currentFrame=0;
+		sprite2.draw(screen, true);
 
+		
 		// draw the line
 		Line line = new Line(10, 10, 60, 80, 255 << 8);
 		Clipping clip = new Clipping();
@@ -125,5 +132,4 @@ public class Game extends Canvas implements Runnable {
 		g.dispose();
 		bs.show();
 	}
-
 }

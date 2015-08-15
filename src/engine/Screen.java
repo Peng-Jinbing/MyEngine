@@ -4,16 +4,17 @@ import java.util.Random;
 
 public class Screen extends Texture {
 	public static final int PANEL_HEIGHT = 8*3;
-	Texture testArea;
-	Texture gameArea;
-	Texture viewArea;
+	private Texture testArea;
+	
+	private Texture gamePanel;
+	private Screen3D viewPenal;
 	
 	
 	public Screen(int width, int height) {
 		super(width, height);
 
-		this.gameArea = new Texture(width,  PANEL_HEIGHT);
-		this.viewArea = new Texture(width,  height - PANEL_HEIGHT);
+		this.gamePanel = new Texture(width,  PANEL_HEIGHT);
+		this.viewPenal = new Screen3D(width,  height - PANEL_HEIGHT);
 	}
 
 	public void render(Ticker ticker) {
@@ -37,11 +38,12 @@ public class Screen extends Texture {
 		for (int i = 0; i < 900; i++) {
 			int xd = (ticker.time + i * 8) % 400 - 100;
 			int yd = 0;// (int) (Math.cos(ticker.time) * 80);
-			gameArea.draw(testArea, (gameArea.width - textureWidth) / 2  + xd, (gameArea.height - textureHeight) / 2 + yd);
+			gamePanel.draw(testArea, (gamePanel.width - textureWidth) / 2  + xd, (gamePanel.height - textureHeight) / 2 + yd);
 		}
 
-		draw(viewArea, 0, 0);
-		draw(gameArea, 0, height - PANEL_HEIGHT);
+		viewPenal.renderFloor(ticker);
+		draw(viewPenal, 0, 0);
+		draw(gamePanel, 0, height - PANEL_HEIGHT);
 		
 		Line lineLeft = new Line(x1, y1, x1, y2, 255 << 8);
 		Line lineBottom = new Line(x1, y2, x2, y2, 255 << 8);

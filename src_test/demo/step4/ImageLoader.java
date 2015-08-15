@@ -7,7 +7,8 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 public class ImageLoader {
-	public static Bitmap sprites = load("/tex/sprites.png");
+	//public static Bitmap sprites = load("/tex/sprites.png");
+	public static Bitmap texture = load("/tex/pokemonSprite.png");//80*80
 
 	private static Bitmap load(String filename) {
 		try {
