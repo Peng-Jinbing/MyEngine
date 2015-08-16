@@ -97,8 +97,9 @@ public class Game extends Canvas implements Runnable {
 			return;// skip one render
 		}
 		
-		Bitmap floors = ImageLoader.sprites;
-		this.screen.render(ticker,floors);
+		Bitmap sprites = ImageLoader.sprites;
+		this.screen.render(ticker,sprites);
+		
 		int[] pixels =this.screen.getPixels();
 		for (int i = 0, len = pixels.length; i < len; i++) {
 			this.screenPixels[i] = pixels[i];
