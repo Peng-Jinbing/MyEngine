@@ -26,7 +26,7 @@ public class Line {
 		int dx1 = w < 0 ? -1 : (w > 0 ? 1 : 0);
 		int dy1 = h < 0 ? -1 : (h > 0 ? 1 : 0);
 
-		int dx2 = w < 0 ? -1 : (w > 0 ? 1 : 0);
+		int dx2 = dx1;
 		int dy2 = 0;
 
 		int fastStep = Math.abs(w);
@@ -36,7 +36,7 @@ public class Line {
 			slowStep = Math.abs(w);
 
 			dx2 = 0;
-			dy2 = h < 0 ? -1 : (h > 0 ? 1 : 0);
+			dy2 = dy1;
 		}
 
 		int numerator = fastStep >> 1;
