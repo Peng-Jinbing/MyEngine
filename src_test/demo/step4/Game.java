@@ -100,16 +100,16 @@ public class Game extends Canvas implements Runnable {
 		// populate the bitmap
 		Bitmap sprites = ImageLoader.texture;
 
-		Sprite sprite1 = new Sprite(0, 0, Sprite.WIDTH_80, Sprite.WIDTH_80);
+		Sprite sprite1 = new Sprite(0, 0, Sprite.WIDTH_22, Sprite.WIDTH_22);
 		sprite1.loadFrame(sprites, 0, 0, 0);
-		sprite1.loadFrame(sprites, 1, 1, 1);
+		sprite1.loadFrame(sprites, 1, 0, 1);
 		sprite1.currentFrame=0;
 		sprite1.draw(screen, true);
 
 		
-		Sprite sprite2 = new Sprite(160, 160, Sprite.WIDTH_80, Sprite.WIDTH_80);
-		sprite2.loadFrame(sprites, 0, 3, 0);
-		sprite2.loadFrame(sprites, 1, 4, 1);
+		Sprite sprite2 = new Sprite(160, 160, Sprite.WIDTH_22, Sprite.WIDTH_22);
+		sprite2.loadFrame(sprites, 0, 0, 1);
+		sprite2.loadFrame(sprites, 1, 0, 2);
 		sprite2.currentFrame=0;
 		sprite2.draw(screen, true);
 
