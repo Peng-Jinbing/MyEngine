@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public class Sprite {
 	public static final int MAX_SPRITE_FRAMES = 32;
 	public static final int WIDTH_16 = 16;
-	public static final int WIDTH_22 = 64;
+	public static final int WIDTH_64 = 64;
 	public static final int WIDTH_80 = 80;
 
 	public Bitmap[] frames = new Bitmap[MAX_SPRITE_FRAMES];
@@ -61,20 +61,20 @@ public class Sprite {
 		numberOfFrames++;
 	}
 
-	public void draw(Bitmap screenImage, boolean transparent) {
+	public void draw(Bitmap image, boolean transparent) {
 		if (frames == null || currentFrame > frames.length || frames[currentFrame] == null) {
 			return;
 		}
 
-		screenImage.put(frames[currentFrame], posX, posY, transparent);
+		image.put(frames[currentFrame], posX, posY, transparent);
 	}
 
-	public void under(BufferedImage screenImage) {
-		// TODO
+	public void under(Bitmap image) {
+		image.get(background, posX, posY);
 	}
 
-	public void erase(BufferedImage screenImage) {
-		// TODO
+	public void erase(Bitmap image) {
+		image.put(background, posX, posY, false);
 	}
 
 	public void drawClip(BufferedImage screenImage, boolean transparent) {
