@@ -54,9 +54,30 @@ public class Game extends Canvas implements Runnable {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 
+		game.initGame();
 		game.startGame();
 	}
+	
+	Sprite sprite1;
+	Sprite sprite2;
 
+	private void initGame(){
+		// populate the bitmap
+		Bitmap texture = ImageLoader.texture;
+
+		sprite1 = new Sprite(0, 0, Sprite.WIDTH_64, Sprite.WIDTH_64);
+		sprite1.loadFrame(texture, 0, 0, 0);
+		sprite1.loadFrame(texture, 1, 1, 0);
+		sprite1.currentFrame = 0;
+		sprite1.under(screen);
+
+		sprite2 = new Sprite(160, 160, Sprite.WIDTH_64, Sprite.WIDTH_64);
+		sprite2.loadFrame(texture, 0, 0, 1);
+		sprite2.loadFrame(texture, 1, 1, 1);
+		sprite2.currentFrame = 0;
+		sprite2.under(screen);
+	}
+	
 	private synchronized void startGame() {
 		if (this.running) {
 			return;
@@ -98,28 +119,31 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		// populate the bitmap
-		Bitmap sprites = ImageLoader.texture;
-
-		Sprite sprite1 = new Sprite(0, 0, Sprite.WIDTH_80, Sprite.WIDTH_80);
-		sprite1.loadFrame(sprites, 0, 0, 0);
-		sprite1.loadFrame(sprites, 1, 1, 1);
-		sprite1.currentFrame=0;
+		sprite1.erase(screen);
+		sprite1.posX= sprite1.posX+5;
+		if(sprite1.posX>WIDTH-5){
+			sprite1.posX =0;
+		}
+		sprite1.under(screen);
 		sprite1.draw(screen, true);
 
-		
-		Sprite sprite2 = new Sprite(160, 160, Sprite.WIDTH_80, Sprite.WIDTH_80);
-		sprite2.loadFrame(sprites, 0, 3, 0);
-		sprite2.loadFrame(sprites, 1, 4, 1);
-		sprite2.currentFrame=0;
+		sprite2.erase(screen);
+		sprite2.posY=sprite2.posY+5;
+		if(sprite2.posY>HEIGHT-5){
+			sprite2.posY =0;
+		}
+		sprite2.under(screen);
 		sprite2.draw(screen, true);
 
 		
 		// draw the line
+		/*
 		Line line = new Line(10, 10, 60, 80, 255 << 8);
 		Clipping clip = new Clipping();
 		clip.setArea(0, 0, 64, 68);
 		clip.clipLine(line);
 		line.draw(this.screen);
+		*/
 		
 		//copy from the screen bitmap to screen buffer
 		int[] pixels =this.screen.getPixels();
@@ -131,5 +155,11 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(this.screenImage, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g.dispose();
 		bs.show();
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
