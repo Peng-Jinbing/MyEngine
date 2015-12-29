@@ -1,0 +1,19 @@
+Step 6:
+1. change the update time to ticker class
+2. change the main update loop, the UPS and FPS, the frame will render only there is at least one updated. so the FPS will be lower than or equals to UPS
+3. change the the screen render method
+
+
+step7:
+1. move the draw method one level up the texture class
+2. add gameArea and viewArea, the viewArea is for the display and gameArea is for control, and render the testTexture to gameArea
+3. fixed the FPS issue, Frame render should not be capped by update tick 
+
+58:13
+
+
+step 8:
+
+
+TODO
+1. In the main loop, added sleep so it will be more effeciency for other application
